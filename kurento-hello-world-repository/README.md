@@ -2,9 +2,10 @@
 
 Copyright © 2013-2016 [Kurento]. Licensed under [LGPL v2.1 License].
 
-kurento-hello-world-recording
+kurento-hello-world-repository
 =============================
-Kurento Java Tutorial: Hello World (WebRTC in loopback) with recording.
+Kurento Java Tutorial: Hello World (WebRTC in loopback) with recording, 
+and metadata storage thorugh the Repository API.
 
 Requires a running instance of [Kurento Repository Server][repository] so that
 the streamed media (from webcam and microphone) is recorded and played by 
@@ -34,7 +35,7 @@ using Maven's `exec` plugin (`[...]` are optional):
 $ git clone git@github.com:Kurento/kurento-tutorial-java.git
 $ cd kurento-tutorial-java/kurento-hello-world-recording
 $ mvn compile exec:java [-Drepository.uri=http://localhost:7676] \
-     [-Dkms.ws.uri=ws://localhost:8888/kurento]
+     [-Dkms.url=ws://localhost:8888/kurento]
 ```
 
 ### Dependencies ###
