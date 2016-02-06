@@ -55,16 +55,22 @@ function setCallState(nextState) {
 	switch (nextState) {
 	case NO_CALL:
 		enableButton('#call', 'call()');
+		enableButton('#callAudioOnly', 'call(true)');
+		enableButton('#callAudioOnlyReceiveVideo', 'call(true, true)');
 		disableButton('#terminate');
 		disableButton('#play');
 		break;
 	case PROCESSING_CALL:
 		disableButton('#call');
+		disableButton('#callAudioOnly');
+		disableButton('#callAudioOnlyReceiveVideo');
 		disableButton('#terminate');
 		disableButton('#play');
 		break;
 	case IN_CALL:
 		disableButton('#call');
+		disableButton('#callAudioOnly');
+		disableButton('#callAudioOnlyReceiveVideo');
 		enableButton('#terminate', 'stop()');
 		disableButton('#play');
 		break;
@@ -227,7 +233,7 @@ function register() {
 	document.getElementById('peer').focus();
 }
 
-function call() {
+function call(audioOnly, offerToReceiveVideo) {
 	if (document.getElementById('peer').value == '') {
 		window.alert('You must specify the peer name');
 		return;
@@ -240,6 +246,12 @@ function call() {
 		remoteVideo : videoOutput,
 		onicecandidate : onIceCandidate,
 		onerror : onError
+	}
+	if (audioOnly) {
+		options.mediaConstraints = {video: false, audio: true};
+                if (offerToReceiveVideo) {
+			options.connectionConstraints = {"mandatory":{"OfferToReceiveAudio":true,"OfferToReceiveVideo":true}};
+		}
 	}
 	webRtcPeer = new kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options,
 			function(error) {
